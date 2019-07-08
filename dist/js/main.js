@@ -4,6 +4,11 @@
 // import Exporting from 'highcharts/modules/exporting';
 // Exporting(Highcharts);
 // console.log(Highcharts);
+Highcharts.setOptions({
+  lang: {
+    thousandsSep: ','
+  }
+});
 document.addEventListener('DOMContentLoaded', function () {
   var myChart = Highcharts.chart('chart-container', {
     chart: {
@@ -13,19 +18,17 @@ document.addEventListener('DOMContentLoaded', function () {
       spacingRight: 100
     },
     data: {
-      googleSpreadsheetKey: '1q70ERhgK8siSUUBRnDPtEO0_fq5eN0F2IODbanqOMx0',
-      googleSpreadsheetWorksheet: 2,
-      endColumn: 2
+      googleSpreadsheetKey: '1HBJ-CWYq37TO6aUZs1JLxdYxasMJXQBowjEDBvIx-CM',
+      parsed: function parsed(data) {
+        console.log(data);
+        return data[0].pop(), data[1].pop();
+      }
     },
     title: {
       text: null
     },
     legend: {
-      align: 'right',
-      symbolRadius: 0,
-      verticalAlign: 'top',
-      x: 10,
-      itemMarginTop: -10
+      enabled: false
     },
     plotOptions: {
       series: {
@@ -44,10 +47,9 @@ document.addEventListener('DOMContentLoaded', function () {
       title: false,
       labels: {
         useHTML: true,
-        overflow: 'allow'
-      },
-      max: 8,
-      tickAmount: 5
+        overflow: 'allow',
+        format: '{value:,.0f}'
+      }
     },
     credits: {
       enabled: false
@@ -55,8 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
     tooltip: {
       shadow: false,
       padding: 10,
-      shared: true,
-      valueSuffix: ' hours'
+      shared: true
     },
     responsive: {
       rules: [{
@@ -65,13 +66,12 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         chartOptions: {
           chart: {
-            spacingRight: 10
+            spacingRight: 20
           },
           tooltip: {
             enabled: false
           },
           yAxis: {
-            max: 9,
             tickAmount: 4
           },
           legend: {
@@ -80,14 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
             itemMarginTop: 0
           }
         }
-      }] // series: [{
-      //     name: 'Jane',
-      //     data: [1, 6, 4]
-      // }, {
-      //     name: 'John',
-      //     data: [5, 7, 3]
-      // }]
-
+      }]
     }
   });
 });
